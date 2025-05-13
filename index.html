@@ -1,0 +1,33 @@
+<!-- index.html -->
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+  <meta charset="UTF-8">
+  <title>Учёт пряжи</title>
+</head>
+<body>
+  <h1>Добавить тип пряжи</h1>
+  <form id="yarn-form">
+    <label>Тип:<input type="text" name="type"></label><br>
+    <label>Цвет:<input type="text" name="color"></label><br>
+    <label>Количество м:<input type="number" name="length"></label><br>
+    <button type="submit">Сохранить</button>
+  </form>
+
+  <script>
+    document.getElementById('yarn-form').addEventListener('submit', async function(e) {
+      e.preventDefault();
+      const formData = new FormData(this);
+      const data = Object.fromEntries(formData);
+
+      const response = await fetch('/api/add', {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify(data)
+      });
+
+      alert('Сохранено!');
+    });
+  </script>
+</body>
+</html>
